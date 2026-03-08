@@ -31,7 +31,7 @@ Cette application permet de gérer efficacement vos contacts grâce à une inter
 
 ### Interface avec ttkbootstrap (thèmes modernes)
 
-| Thème clair | Thème sombre |
+| Thème solar | Thème darkly |
 |:---:|:---:|
 | ![Theme solar](docs/images/solar-theme.png) | ![Theme darkly](docs/images/darkly-theme.png) |
 
@@ -40,3 +40,4 @@ Cette application permet de gérer efficacement vos contacts grâce à une inter
 ![Interface Tkinter standard](docs/images/sans-ttkbootstrap.png)
 
 *L'application détecte automatiquement si ttkbootstrap est installé*
+
