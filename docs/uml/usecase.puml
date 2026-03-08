@@ -1,0 +1,68 @@
+@startuml
+!theme cerulean-outline
+left to right direction
+skinparam actorStyle awesome
+skinparam usecaseBackgroundColor #EEF2FF
+skinparam usecaseBorderColor #4F46E5
+skinparam usecaseFontColor #1E1B4B
+skinparam actorFontColor #1E1B4B
+skinparam actorBorderColor #4F46E5
+skinparam packageBackgroundColor #F5F3FF
+skinparam packageBorderColor #7C3AED
+skinparam arrowColor #6D28D9
+skinparam noteBorderColor #A78BFA
+skinparam noteBackgroundColor #EDE9FE
+
+actor "Utilisateur" as U
+
+rectangle "Application Carnet d'Adresses" {
+
+  usecase "Ajouter un contact" as UC1
+  usecase "Rechercher un contact" as UC2
+  usecase "Modifier un contact" as UC3
+  usecase "Supprimer un contact" as UC4
+  usecase "Afficher tous les contacts" as UC5
+  usecase "Quitter l'application" as UC6
+
+  usecase "Valider les champs\nobligatoires" as UC1a
+  usecase "Afficher message\nd'erreur / échec" as ERR
+  usecase "Recherche partielle\n(nom, téléphone, email)" as UC2a
+  usecase "Confirmer la\nsuppression" as UC4a
+  usecase "Fermer les\nressources" as UC6a
+}
+
+U --> UC1
+U --> UC2
+U --> UC3
+U --> UC4
+U --> UC5
+U --> UC6
+
+UC1 ..> UC1a : <<include>>
+UC1 ..> ERR : <<extend>>\nchamps manquants\nou erreur BDD
+
+UC2 ..> UC2a : <<include>>
+UC2 ..> ERR : <<extend>>\naucun résultat
+
+UC3 ..> ERR : <<extend>>\naucune sélection\nou échec mise à jour
+
+UC4 ..> UC4a : <<include>>
+UC4 ..> ERR : <<extend>>\nannulation confirmation
+
+UC6 ..> UC6a : <<include>>
+
+note right of UC1
+  Enregistre dans SQLite
+  et rafraîchit la liste
+end note
+
+note right of UC2
+  Correspondance partielle
+  sur nom, téléphone, email
+end note
+
+note right of UC5
+  Affichage trié
+  alphabétiquement par nom
+end note
+@enduml

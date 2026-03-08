@@ -1,0 +1,49 @@
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+
+'------------------------
+' Classes principales
+'------------------------
+
+class ContactModel {
+    - dataSource
+    + ajouter_contact()
+    + rechercher_contacts()
+    + modifier_contact()
+    + supprimer_contact()
+    + obtenir_tous()
+}
+
+class CarnetAdressesView {
+    - interface
+    + afficher_contacts()
+    + afficher_message()
+    + lire_saisie()
+    + reinitialiser_formulaire()
+    ' The view defines what it can do, but doesn't call the controller directly
+}
+
+class CarnetAdressesController {
+    - model: ContactModel
+    - view: CarnetAdressesView
+    + ajouter_contact()
+    + rechercher_contact()
+    + modifier_contact()
+    + supprimer_contact()
+    + afficher_tous()
+}
+
+'------------------------
+' Relations (Decoupled)
+'------------------------
+
+' The Controller "Controls" both. 
+' It listens to the View and updates the Model.
+CarnetAdressesController "1" --> "1" ContactModel : manipule
+CarnetAdressesController "1" --> "1" CarnetAdressesView : met à jour / écoute
+
+' Removed: CarnetAdressesView --> CarnetAdressesController
+' In pure MVC, the View shouldn't hold a reference to the Controller 
+' to maintain a one-way dependency flow.
+@enduml
